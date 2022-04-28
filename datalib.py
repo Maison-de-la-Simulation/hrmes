@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
-from conf import (train_test_split_index, batch_size, device)
+from conf import (train_test_split_ratio, batch_size, device)
 
 class HRMESDataset(Dataset):
 
@@ -17,6 +17,7 @@ class HRMESDataset(Dataset):
         return self.maps[idx[:-1]], self.maps[idx[-1]]
 
 def make_datasets(maps, data):
+    train_test_split_index = int(len(data) * train_test_split_ratio)
     train_ds = HRMESDataset(maps, data[:train_test_split_index])
     test_ds = HRMESDataset(maps, data[train_test_split_index:])
     print(f"There are {len(train_ds)} training samples and {len(test_ds)} test_samples")

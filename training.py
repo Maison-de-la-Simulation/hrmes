@@ -22,7 +22,7 @@ def train(
 
         pbar = tqdm(train_dataloader)
         for i, (x, y) in enumerate(pbar, start=1):
-            x, y = x.to(device), y.to(device)
+            x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
             output = model(x)
 
             optimizer.zero_grad()
@@ -38,7 +38,7 @@ def train(
         pbar = tqdm(test_dataloader)
         for i, (x, y) in enumerate(pbar, start=1):
             with torch.no_grad():
-                x, y = x.to(device), y.to(device)
+                x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
                 output = model(x)
                 loss = compute_loss(criterion, output, y, bool_mask).item()
                 accumulated_test_loss += loss
@@ -59,7 +59,7 @@ def test_sample(model, criterion, test_ds, bool_mask, idx=None):
         idx = random.randrange(len(test_ds))
     print("Chosen idx:", idx)
     x, y = test_ds[idx]
-    x, y = x.to(device), y.to(device)
+    x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
     
     last_month = x[-1]
     average = x.mean(0)
@@ -106,7 +106,7 @@ def test_sample_pca(model, criterion, test_ds, bool_mask, pca, idx=None):
         idx = random.randrange(len(test_ds))
     print("Chosen idx:", idx)
     x, y = test_ds[idx]
-    x, y = x.to(device), y.to(device)
+    x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
     
     last_month = x[-1]
     average = x.mean(0)
@@ -129,19 +129,21 @@ def test_sample_pca(model, criterion, test_ds, bool_mask, pca, idx=None):
     print(f"Mean of ground truth: {expectedmean:.3f} ; Std of ground truth: {expectedstd:.3f}")
     print(f"Mean of predicted map: {obtainedmean:.3f} ; Std of predicted map: {obtainedstd:.3f}")
     
+    lim = max(expectedstd, obtainedstd) * 3.
+
     # Display
     fig = plt.figure(figsize=(20, 12))
     plt.subplot(2, 2, 1)
-    plt.pcolor(last_month) #.cpu().numpy()
+    plt.pcolor(last_month, vmin=-lim, vmax=lim) #.cpu().numpy()
     plt.title(f"Last month (loss: {loss_last_month:.3f})")
     plt.subplot(2, 2, 2)
-    plt.pcolor(average) #.cpu().numpy()
+    plt.pcolor(average, vmin=-lim, vmax=lim) #.cpu().numpy()
     plt.title(f"Timewise average of input (loss: {loss_average:.3f})")
     plt.subplot(2, 2, 3)
-    plt.pcolor(output)
+    plt.pcolor(output, vmin=-lim, vmax=lim)
     plt.title(f"Predicted first test month (loss: {loss_prediction:.3f})")
     plt.subplot(2, 2, 4)
-    plt.pcolor(y)
+    plt.pcolor(y, vmin=-lim, vmax=lim)
     plt.title("Ground truth first test month")
 
 
@@ -151,7 +153,7 @@ def quantify_quality_one_signal(
 ):
     losses = []
     x, y = test_ds[first_index]
-    x, y = x.to(device), y.to(device)
+    x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
     with torch.no_grad():
         for i in range(first_index + 1, last_index):
             output = model(x[None])

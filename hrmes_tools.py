@@ -1,14 +1,30 @@
 import xarray as xr
 import numpy as np
 import torch
+import os
 from sklearn.decomposition import PCA
 
 from conf import (
-    length, device, mask_dataset_path, msft_dataset_path
+    length, device, mask_dataset_path, msft_dataset_path, msft_dataset_path_prefix
 )
 
-def load_msft():
-    return xr.open_dataset(msft_dataset_path, decode_times=False)
+def load_msft_str():
+    return xr.open_dataset(
+        #"/gpfswork/rech/omr/romr004/MLspinup/CM65v406/MSFT/CM65v406-LR-pi-06_18600101_18691231_1M_MSFT.nc",
+        msft_dataset_path,
+        decode_times=False
+    )
+
+def load_msft_list(index=None):
+    if isinstance(index, int):
+        msft = msft_dataset_path[index]
+    else:
+        msft = msft_dataset_path
+    signals = []
+    for filename in msft:
+        path = os.path.join(msft_dataset_path_prefix, filename)
+        signals.append(xr.open_dataset(path, decode_times=False))
+    return xr.concat(signals, dim="time").astype(np.float32)
 
 def load_mask_ds():
     return xr.open_dataset(mask_dataset_path, decode_times=False)
@@ -21,6 +37,7 @@ def get_bathy(mask_ds):
 
 def get_ssca(dataset):
     dataset = np.array(dataset)
+    dataset[dataset == 0.] = np.nan
     x, y = dataset.shape[1:3]
     nbyears = dataset.shape[0] // 12
     arr = np.reshape(dataset, (nbyears, 12, x, y))

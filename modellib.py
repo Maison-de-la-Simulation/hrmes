@@ -53,7 +53,7 @@ class Conv(nn.Module):
 class PCAHRMESModel(nn.Module):
 
     def __init__(self):
-        super(PCAHRMESModel, self).__init()
+        super(PCAHRMESModel, self).__init__()
         self.rnn = nn.GRU(50, 50, batch_first=True, num_layers=3, bidirectional=True)
         self.mlp = nn.Linear(100, 50)
 
@@ -113,11 +113,11 @@ def define_model_optimizer_criterion(bathy, pca_model=False):
 
 
 def compute_loss(criterion, output, target, bool_mask=None):
-    if bool_mask is None:
-        return criterion(output, target)
-    else:
-        target = Pad.forward(..., target, offset=1)
-        return criterion(
-            torch.masked_select(output, bool_mask),
-            torch.masked_select(target, bool_mask)
-        )
+    return criterion(output, target)
+    # if bool_mask is None:
+    # else:
+    #     target = Pad.forward(..., target, offset=1)
+    #     return criterion(
+    #         torch.masked_select(output, bool_mask),
+    #         torch.masked_select(target, bool_mask)
+    #     )
