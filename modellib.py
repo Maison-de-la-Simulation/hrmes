@@ -62,6 +62,9 @@ class PCAHRMESModel(nn.Module):
         x = self.rnn(x)[0][:, -1, :]
         x = self.mlp(x)
         return x
+    
+    def compute_loss(self, criterion, output, target, *args):
+        return criterion(output, target)
 
 
 class HRMESModel(nn.Module):
@@ -98,26 +101,21 @@ class HRMESModel(nn.Module):
         x = x.squeeze(dim=1)
         return x
 
+    def compute_loss(self, criterion, output, target, bool_mask):
+        target = Pad.forward(..., target, offset=1)
+        return criterion(
+            torch.masked_select(output, bool_mask),
+            torch.masked_select(target, bool_mask)
+        )
 
-def define_model_optimizer_criterion(bathy, pca_model=False):
+def define_model_optimizer_criterion(pca_model=False, *args, **kwargs):
     if pca_model:
-        model = PCAHRMESModel().to(device)
+        model = PCAHRMESModel(*args, **kwargs).to(device)
     else:
-        model = HRMESModel(bathy).to(device)
+        model = HRMESModel(*args, **kwargs).to(device)
     model_parameters = filter(lambda p: p.requires_grad, model.parameters())
     params = sum([np.prod(p.size()) for p in model_parameters])
     print(f"Model has {params} parameters")
     criterion = nn.MSELoss()
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
     return model, criterion, optimizer
-
-
-def compute_loss(criterion, output, target, bool_mask=None):
-    return criterion(output, target)
-    # if bool_mask is None:
-    # else:
-    #     target = Pad.forward(..., target, offset=1)
-    #     return criterion(
-    #         torch.masked_select(output, bool_mask),
-    #         torch.masked_select(target, bool_mask)
-    #     )

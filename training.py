@@ -4,7 +4,6 @@ from tqdm.notebook import tqdm
 import random
 import matplotlib.pyplot as plt
 from conf import device, test_length
-from modellib import compute_loss
 
 
 def train(
@@ -26,7 +25,7 @@ def train(
             output = model(x)
 
             optimizer.zero_grad()
-            loss = compute_loss(criterion, output, y, bool_mask)
+            loss = model.compute_loss(criterion, output, y, bool_mask)
             loss.backward()
             optimizer.step()
 
@@ -40,7 +39,7 @@ def train(
             with torch.no_grad():
                 x, y = x.to(device, dtype=torch.float32), y.to(device, dtype=torch.float32)
                 output = model(x)
-                loss = compute_loss(criterion, output, y, bool_mask).item()
+                loss = model.compute_loss(criterion, output, y, bool_mask).item()
                 accumulated_test_loss += loss
                 pbar.set_description(f"Test loss: {accumulated_test_loss / i:.3f}")
                 test_losses.append(accumulated_test_loss / i)
@@ -65,9 +64,9 @@ def test_sample(model, criterion, test_ds, bool_mask, idx=None):
     average = x.mean(0)
     output = model(x[None])[0]
 
-    loss_last_month = compute_loss(criterion, last_month, y, bool_mask).item()
-    loss_average = compute_loss(criterion, average, y, bool_mask).item()
-    loss_prediction = compute_loss(criterion, output, y, bool_mask).item()
+    loss_last_month = model.compute_loss(criterion, last_month, y, bool_mask).item()
+    loss_average = model.compute_loss(criterion, average, y, bool_mask).item()
+    loss_prediction = model.compute_loss(criterion, output, y, bool_mask).item()
     
     output = output.detach().cpu().numpy()
     y = y.detach().cpu().numpy()
@@ -112,9 +111,9 @@ def test_sample_pca(model, criterion, test_ds, bool_mask, pca, idx=None):
     average = x.mean(0)
     output = model(x[None])[0]
 
-    loss_last_month = compute_loss(criterion, last_month, y, bool_mask).item()
-    loss_average = compute_loss(criterion, average, y, bool_mask).item()
-    loss_prediction = compute_loss(criterion, output, y, bool_mask).item()
+    loss_last_month = model.compute_loss(criterion, last_month, y, bool_mask).item()
+    loss_average = model.compute_loss(criterion, average, y, bool_mask).item()
+    loss_prediction = model.compute_loss(criterion, output, y, bool_mask).item()
     
     output = output.detach().cpu().numpy()
     y = y.detach().cpu().numpy()
@@ -157,7 +156,7 @@ def quantify_quality_one_signal(
     with torch.no_grad():
         for i in range(first_index + 1, last_index):
             output = model(x[None])
-            loss = compute_loss(criterion, output, y, bool_mask)
+            loss = model.compute_loss(criterion, output, y, bool_mask)
             losses.append(loss.item())
             x = torch.cat([x[1:, ...], output], dim=0)
             y = test_ds[i][1].to(device)
