@@ -52,8 +52,27 @@ class SimulationBatch:
         return self.simulations[index]
 
     @staticmethod
+    def get_annual_values(dataset):
+        if not isinstance(dataset, np.ndarray):
+            dataset = np.array(dataset.MSFT)
+        dataset[dataset == 0.] = np.nan
+        dataset = torch.from_numpy(dataset).T
+        shape = dataset.shape
+        dataset = dataset.reshape((-1, 1, shape[-1]))
+        averager = torch.nn.AvgPool1d(12, stride=12, padding=0)
+        dataset = averager(dataset)
+        dataset = dataset.reshape((*shape[:-1], -1)).T
+        dataset = dataset.numpy()
+        return dataset
+    
+    def convert2annual(self):
+        for i in range(len(self.simulations)):
+            self.simulations[i] = self.get_annual_values(self.simulations[i])
+
+    @staticmethod
     def get_ssca(dataset):
-        dataset = np.array(dataset.MSFT)
+        if not isinstance(dataset, np.ndarray):
+            dataset = np.array(dataset.MSFT)
         dataset[dataset == 0.] = np.nan
         x, y = dataset.shape[1:3]
         nbyears = dataset.shape[0] // 12

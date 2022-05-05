@@ -1,6 +1,6 @@
 import torch
 
-length = 12
+length = 3
 batch_size = 8
 epochs = 100
 test_length = 10
