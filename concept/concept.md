@@ -2,14 +2,11 @@
 
 ## Motivation
 
-* some illustrations of spin-up time
-* Nathan travaille sur pytorch, et cela ravit Redouane :wink:
-* normalisation point par point, avec min et max -> envisager de passer à ÷ std ou ÷(2×std)
-* masque le long des continents à paufiner
-* introduire periodicité entre bords est et ouest via padding (il y a aussi une periodicite le long du bord nord, entre parties est et ouest, mais plus difficile à introduire)
+* an illustration of spin-up time from the QUEST project
 
-Prochaine étape : appliquer le reseau en boucle pour voir au bout de combien d’annees les erreurs deviennent trop importantes (tracer rmse en fonction du nombre de mois predits dans le futur, puis qq cartes pour points d’inflexion dans serie temporelle de rmse)
+Illustration of spin-up of IPSLCM6.2.2-MR025 (orange) and bifurcation towards another equilibrium (purple) after ocean currents were (mistakingly) reset to 0 ; other lines illustrate the long-term drift of IPSLCM6.2.2-MR1 (green and blue) and the bifurcation due to change in CO2 concentration (yellow and red) :
+![Spinup of QUEST-MR025](data/OCE_thetao_1000m_MR025_pi_spinup.gif)
 
-![First attempt with CNN](data/attempt1.png)
-À gauche le 13ème mois prédit par le réseau à partir des 12 premiers, à gauche la carte attendue
+* another illustration 
 
+![Set1 of simulations](concept/data/CM62-CM65_OCE_hc.gif)
