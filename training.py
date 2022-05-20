@@ -134,16 +134,18 @@ def test_sample_pca(model, criterion, test_ds, bool_mask, pca, idx=None):
     fig = plt.figure(figsize=(20, 12))
     plt.subplot(2, 2, 1)
     plt.pcolor(last_month, vmin=-lim, vmax=lim) #.cpu().numpy()
-    plt.title(f"Last month (loss: {loss_last_month:.3f})")
+    plt.title(f"Last year (loss: {loss_last_month:.3f})")
     plt.subplot(2, 2, 2)
     plt.pcolor(average, vmin=-lim, vmax=lim) #.cpu().numpy()
     plt.title(f"Timewise average of input (loss: {loss_average:.3f})")
     plt.subplot(2, 2, 3)
     plt.pcolor(output, vmin=-lim, vmax=lim)
-    plt.title(f"Predicted first test month (loss: {loss_prediction:.3f})")
+    plt.title(f"Predicted first test year (loss: {loss_prediction:.3f})")
     plt.subplot(2, 2, 4)
-    plt.pcolor(y, vmin=-lim, vmax=lim)
-    plt.title("Ground truth first test month")
+    plt.pcolor(np.abs(y - output), )#vmin=-lim, vmax=lim)
+    plt.colorbar()
+    plt.title("Difference between ground truth and prediction")
+    # plt.title("Ground truth first test month")
 
 
 

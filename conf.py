@@ -7,7 +7,7 @@ test_length = 10
 train_test_split_ratio = 0.8
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-mask_dataset_path = "/gpfswork/idris/sos/ssos025/HRMES/MLspinup/INPUTS/eORCA1.2_mesh_mask.nc"
+mask_dataset_path = "/gpfswork/idris/sos/ssos025/pnria/hrmes/MLspinup/INPUTS/eORCA1.2_mesh_mask.nc"
 #msft_dataset_path = "/gpfswork/idris/sos/ssos025/HRMES/MLspinup/IPSLCM6ALR/msftbarot_Omon_IPSL-CM6A-LR_piControl_r1i1p1f1_gn_185001-234912.nc"
 
 msft_dataset_path_prefix = "/gpfswork/rech/omr/romr004/MLspinup/CM65v406/MSFT"

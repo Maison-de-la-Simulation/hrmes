@@ -23,7 +23,10 @@ class SimulationBatch:
         for filename in msft_dataset_path[index]:
             path = os.path.join(msft_dataset_path_prefix, filename)
             signals.append(xr.open_dataset(path, decode_times=False))
-        return xr.concat(signals, dim="time").astype(np.float32)
+        concat_signals = xr.concat(signals, dim="time").astype(np.float32)
+        array = np.array(concat_signals.MSFT)
+        array[array == 0.] = np.nan
+        return array
 
     @classmethod
     def load(cls):
@@ -53,9 +56,6 @@ class SimulationBatch:
 
     @staticmethod
     def get_annual_values(dataset):
-        if not isinstance(dataset, np.ndarray):
-            dataset = np.array(dataset.MSFT)
-        dataset[dataset == 0.] = np.nan
         dataset = torch.from_numpy(dataset).T
         shape = dataset.shape
         dataset = dataset.reshape((-1, 1, shape[-1]))
@@ -71,9 +71,6 @@ class SimulationBatch:
 
     @staticmethod
     def get_ssca(dataset):
-        if not isinstance(dataset, np.ndarray):
-            dataset = np.array(dataset.MSFT)
-        dataset[dataset == 0.] = np.nan
         x, y = dataset.shape[1:3]
         nbyears = dataset.shape[0] // 12
         arr = np.reshape(dataset, (nbyears, 12, x, y))
@@ -166,16 +163,20 @@ class SimulationBatch:
 
     def make_train_test_ds(self, index):
         indices = self.indices[index]
+
         train_test_split_index = int(len(indices) * train_test_split_ratio)
+        # train_test_split_index = int(len(indices) * (1-train_test_split_ratio))
         train_ds = HRMESDataset(
             self.simulations[index],
             self.masked_simulations[index],
             indices[:train_test_split_index]
+            # indices[train_test_split_index:]
         )
         test_ds = HRMESDataset(
             self.simulations[index],
             self.masked_simulations[index],
             indices[train_test_split_index:]
+            # indices[:train_test_split_index]
         )
         return train_ds, test_ds
 
@@ -184,6 +185,18 @@ class SimulationBatch:
             *[self.make_train_test_ds(i) for i in range(len(self.simulations))]
         )
         return ConcatDataset(train_ds), ConcatDataset(test_ds)
+
+    def train_test_ds2(self):
+        train_ds = HRMESDataset(
+            self.simulations[1],
+            self.masked_simulations[1],
+            self.indices[1]
+        )
+        test_ds = ConcatDataset([
+            HRMESDataset(self.simulations[0], self.masked_simulations[0], self.indices[0]),
+            HRMESDataset(self.simulations[2], self.masked_simulations[2], self.indices[2])
+        ])
+        return train_ds, test_ds
 
     @staticmethod
     def make_dataloaders(train_ds, test_ds):
