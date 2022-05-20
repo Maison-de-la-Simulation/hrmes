@@ -1,3 +1,35 @@
+## 12 mai
+
+pour la version qui utilise les moyennes annuelles:
+
+* elle semble tres bien fonctionner : cartes tres proches entre prediction et truth - mais c’est peut etre une illustion d’optique car patterns tres similaires -> sortir les cartes de difference entre prediction et truth
+* sortir aussi les cartes des modes de la PCA (covariance + colorbar et serie temporelle), pour modes 1, 2 et 3 et pour les differentes simus
+* tester si apprentissage sur 80% de la fin de la simu donne les meme resultats -> normalement non si la variance est bien concentrée au debut
+* reduire la bdd aux 50 premieres annees seulement, et predire annee 4 à partir des 3 precedentes -> normalement doit moins bien fonctionner
+
+-> conclusion sur moyennes annuelles : on perd surement le bruit mais si on peut extraire la dynamique (grande echelle + serie temporelle de spinup) alors c’est gagné !
+
+* Nathan a testé un apprentissage du GRU sur premiere simu puis application sur les 2 autres -> pas de degradation majeure des resultats -> tres prometteur si ca permet d’inferer modes >2 d’une simu à l’autre, et ainsi se contenter de reconstruire mode 1 avec le GRU
+* bande verticale dans donnees mensuelles : semble provenir de la reconstruction de BTSF (manque prise en compte d’un terme source le long de continent Antarctique, cf param flux d’eau douce de la calotte) - n’est pas present dans donnees annuelles -> on le garde en tete mais on n’y accorde pas trop d’importance pour l’instant
+
+
+## 28 avril
+
+* Nathan travaille maintenant sur dataset de ~13000 mois, issus de 3 simulations “jumelles”, toujours à partir de PCA -> par rapport au dataset precedent (6000 mois), on ameliore la loss function
+* par contre signaux importants dans l’austral et le pacifique qu’on ne reconstruit pas bien -> passer à un apprentissage  sur des données annuelles ?
+* Redouane suggere de sortir des figures complementaires sur les coefficients PCA en fonction du temps, Julie demande si c’est possible aussi de visualiser les cartes des PCA (coeffs*dataset3D=carte(y,x)) -> Nathan essaye d’utiliser https://ajdawson.github.io/eofs/latest/
+* premiere experience à mener : apprendre sur simu longue et tester sur 2 autres simus courtes (et on a les données pour valider)
+* deuxieme experience à mener (dans un second temps a priori): tester si inference de la suite des 2 simus courtes converge, et si oui à quelle vitesse (pour rappel, on n’a pas les donnees pour valider)
+
+
+## 14 avril
+
+* suite exploration PCA : 50 modes suffisent à expliquer 90% variance - dans ce cas les epochs sont plus rapides mais il en faut beaucoup plus (une centaine environ) -> comparaison de prediction vs truth : moins de bruit dans toutes les donnees, mais des patterns sud-est pacifique manquent dans la prediction ; evaluation de l’erreur : tendance toujours lineaire, mais petite amelioration par rapport à CNN sans PCA
+* pb taille e2u et e3u par rapport aux donnees -> @Julie Deshayes regarde notebook jean-zay de Nathan
+* Olivier souligne qu’il vaut mieux jeter les 10 premieres annees des simus qui partent du repos
+* @Julie Deshayes doit inserer schema du concept spinup
+
+
 ## 7 avril
 
 * Redouane a refait tourner le notebook de Nathan, qui est donc reproductible et introduit qq modifications -> à partager avec Nathan
