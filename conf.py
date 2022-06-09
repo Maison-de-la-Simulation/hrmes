@@ -1,8 +1,8 @@
 import torch
 
-length = 3
+length = 12
 batch_size = 8
-epochs = 100
+epochs = 20
 test_length = 10
 train_test_split_ratio = 0.8
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

@@ -54,8 +54,8 @@ class PCAHRMESModel(nn.Module):
 
     def __init__(self):
         super(PCAHRMESModel, self).__init__()
-        self.rnn = nn.GRU(50, 50, batch_first=True, num_layers=3, bidirectional=True)
-        self.mlp = nn.Linear(100, 50)
+        self.rnn = nn.GRU(1, 64, batch_first=True, num_layers=2, bidirectional=True, dropout=0.2)
+        self.mlp = nn.Linear(128, 1)
 
     def forward(self, x):
         x = torch.nan_to_num(x).requires_grad_()
