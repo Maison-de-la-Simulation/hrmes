@@ -18,21 +18,41 @@ class SimulationBatch:
         self.bathy = bathy
 
     @staticmethod
-    def load_simulation(index=0):
+    def load_simulation_from_config(index=0):
+        return SimulationBatch._load_sim(
+            *msft_dataset_path[index],
+            prefix=msft_dataset_path_prefix
+        )
+
+    @staticmethod
+    def load_simulation(*paths, prefix=None):
+        if len(paths) == 1 and isinstance(paths[0], (tuple, list)):
+            paths = paths[0]
+
         signals = []
-        for filename in msft_dataset_path[index]:
-            path = os.path.join(msft_dataset_path_prefix, filename)
-            signals.append(xr.open_dataset(path, decode_times=False))
-        concat_signals = xr.concat(signals, dim="time").astype(np.float32)
-        array = np.array(concat_signals.MSFT)
+        for path in paths:
+            if prefix is not None:
+                path = os.path.join(prefix, path)
+            signals.append(
+                xr.open_dataset(path, decode_times=False)
+            )
+        array = xr.concat(signals, dim="time")
+        array = np.array(array.MSFT).astype(np.float32)
         array[array == 0.] = np.nan
+        if tuple(array.shape[-2:]) == (332, 362): # bad version of nemo
+            array = array[..., :-1, 1:-1] # Shift
+
+            # Remove lakes
+            array[..., 248:261, 196:207] = np.nan
+            array[..., 179:188, 319:320] = np.nan
+            array[..., 243:266, 333:340] = np.nan
         return array
 
     @classmethod
     def load(cls):
         simulations = []
         for i in range(len(msft_dataset_path)):
-            simulations.append(cls.load_simulation(i))
+            simulations.append(cls.load_simulation_from_config(i))
         return cls(simulations)
 
     def load_mask_bathy(self):
@@ -42,6 +62,9 @@ class SimulationBatch:
 
     def __iter__(self):
         return iter(self.simulations)
+
+    def __len__(self):
+        return len(self.simulations)
 
     @classmethod
     def concat(cls, sim_batch1, sim_batch2):
@@ -90,19 +113,22 @@ class SimulationBatch:
         self.int_mask = self.bool_mask.to(device=device, dtype=int)
 
     @staticmethod
-    def min_max_normalization(array):
+    def min_max_normalization(array, *args):
         m = np.nanmin(array, keepdims=True)
         M = np.nanmax(array, keepdims=True)
-        return (array - m) / (M - m)
+        return (array - m) / (M - m), m, M
 
     @staticmethod
-    def pointwise_normalization(ssca):
-        m = np.nanmean(ssca, axis=None, keepdims=True)
-        std = np.nanstd(ssca, axis=None, keepdims=True)
-        return (ssca - m) / (2.0 * std)
+    def pointwise_normalization(ssca, *args):
+        if len(args) == 0:
+            m = np.nanmean(ssca, axis=None, keepdims=True)
+            std = np.nanstd(ssca, axis=None, keepdims=True)
+        else:
+            m, std = args[0], args[1]
+        return (ssca - m) / (2.0 * std), m, std
 
     @staticmethod
-    def neighbor_normalization(ssca):
+    def neighbor_normalization(ssca, *args):
         ssca_tensor = torch.from_numpy(ssca)
         unfolded = torch.nn.Unfold(
             kernel_size=(3, 3),
@@ -116,19 +142,19 @@ class SimulationBatch:
         std = torch.from_numpy(
             np.nanstd(unfolded, axis=1, keepdims=True).reshape(1, 332, 362)
         )
-        return (ssca_tensor - m) / (2.0 * std)
+        return (ssca_tensor - m) / (2.0 * std), m, std
 
-    def _normalize(self, normalize_fun, sim_batch):
+    def _normalize(self, normalize_fun, sim_batch, *args):
         for i in range(len(sim_batch)):
-            sim_batch[i] = normalize_fun(sim_batch[i])
+            sim_batch[i], self.m, self.std = normalize_fun(sim_batch[i], *args)
 
-    def normalize(self, method="minmax"):
+    def normalize(self, *args, method="minmax"):
         if method == "minmax":
-            self._normalize(self.min_max_normalization, self.simulations)
+            self._normalize(self.min_max_normalization, self.simulations, *args)
         elif method == "pointwise_stats":
-            self._normalize(self.pointwise_normalization, self.simulations)
+            self._normalize(self.pointwise_normalization, self.simulations, *args)
         elif method == "neighbor_stats":
-            self._normalize(self.neighbor_normalization, self.simulations)
+            self._normalize(self.neighbor_normalization, self.simulations, *args)
         else:
             raise NotImplementedError()
 
