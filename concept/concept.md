@@ -15,7 +15,8 @@ Illustration of spin-up of IPSLCM6.2.2-MR025 (orange) and bifurcation towards an
 ## Dataset
 
 
-Tableau qui liste les 7 simulations disponibles pour training and testing database
+Tableau récapitulatif des 7 simulations disponibles : 3 simulations d'entraînement (1-3) et 4 simulations de test (4-7).
+![Tableau récapitulatif des 3 simulations d'entraînement et des 4 simulations de test.](data/Retroplanning.png)
 
 Figure qui montre MSFT moyenne pour la simu la plus longue avec petits points + pannel qui montre series temporelles en qq points choisis -> montrer que signal varie n'importe comment un peu partout...
 
