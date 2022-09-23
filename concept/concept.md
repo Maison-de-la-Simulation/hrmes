@@ -14,13 +14,24 @@ Illustration of spin-up of IPSLCM6.2.2-MR025 (orange) and bifurcation towards an
 
 ## Dataset
 
+In order to properly understand and accelerate the Spin-Up phase, we need to take into account the varying physics coming from the changing parametrization of our computational model(s) : the bigger and more varied our dataset, the better we should be able to extract a general behaviour, insuring to some extent the viability of an acceleration method in all future simulations.
+On the other hand — the Spin-Up process potentially spanning time-scales up the millenium — we need a dataset containing extensive lengths of simulation time, which goes against the need for a varied dataset since ressources are limited.
 
-Tableau récapitulatif des 7 simulations disponibles : 3 simulations d'entraînement (1-3) et 4 simulations de test (4-7).
+We tried to gather for a start 3 lengthy simulation runs, coming from previous versions of the NEMO model : this is what we defined as our Training Set (Sims 1-3). We then supplemented this first set with several shorter simulation runs using the current version of the NEMO model (v4.2.0–release candidate), as well as variations on the model parameters stemming from current development efforts : this is our Testing Set (Sims 4-7) on which acceleration attempts have been conducted.
+.
+Table summing up the Available Simulation Dataset : 3 Training Simulations (1-3) and 4 Testing Simulations (4-7).
 ![Tableau récapitulatif des 3 simulations d'entraînement et des 4 simulations de test.](data/Retroplanning.png)
 
-Figure qui montre MSFT moyenne pour la simu la plus longue avec petits points + pannel qui montre series temporelles en qq points choisis -> montrer que signal varie n'importe comment un peu partout...
+* The Barotropic Stream Function (MSFT) 
 
-## First step : reducing complexity in datatset
+As a starting point of the Spin-Up Acceleration Process, we studied the Barotropic Stream Function (also called Mass Stream FuncTion, MSFT).
+
+Map of the average MSFT for the longest simulation (Sim. 2), with the yearly and monthly averages of the MSFT Anomaly in a few sample points.
+![Carte de la MSFT moyenne pour Sim. 2. Exemples de séries temporelles en quelques points.](data/MSFT Map.png)
+
+As we can see with the few sample points taken here, no significant overall trend can be straightforwardly extracted from the MSFT signal. To pick up an underlying behaviour, statistical analysis of the spatio-temporal signal will be essential.
+
+## First step : reducing complexity in dataset
 
 * PCA
 PCA sur 1 seule simu à la fois 
