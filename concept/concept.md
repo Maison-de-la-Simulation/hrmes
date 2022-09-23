@@ -18,16 +18,18 @@ In order to properly understand and accelerate the Spin-Up phase, we need to tak
 On the other hand — the Spin-Up process potentially spanning time-scales up the millenium — we need a dataset containing extensive lengths of simulation time, which goes against the need for a varied dataset since ressources are limited.
 
 We tried to gather for a start 3 lengthy simulation runs, coming from previous versions of the NEMO model : this is what we defined as our Training Set (Sims 1-3). We then supplemented this first set with several shorter simulation runs using the current version of the NEMO model (v4.2.0–release candidate), as well as variations on the model parameters stemming from current development efforts : this is our Testing Set (Sims 4-7) on which acceleration attempts have been conducted.
-.
-Table summing up the Available Simulation Dataset : 3 Training Simulations (1-3) and 4 Testing Simulations (4-7).
-![Tableau récapitulatif des 3 simulations d'entraînement et des 4 simulations de test.](data/Retroplanning.png)
+
+
+**↓↓↓ Table summing up the Available Simulation Dataset : 3 Training Simulations (1-3) and 4 Testing Simulations (4-7).↓↓↓**
+![Tableau récapitulatif des 3 simulations d'entraînement et des 4 simulations de test.](data/Dataset.png)
 
 * The Barotropic Stream Function (MSFT) 
 
 As a starting point of the Spin-Up Acceleration Process, we studied the Barotropic Stream Function (also called Mass Stream FuncTion, MSFT).
 
-Map of the average MSFT for the longest simulation (Sim. 2), with the yearly and monthly averages of the MSFT Anomaly in a few sample points.
-![Carte de la MSFT moyenne pour Sim. 2. Exemples de séries temporelles en quelques points.](data/MSFT Map.png)
+
+**↓↓↓ Mean MSFT Map for the longest simulation (Sim. 2), with yearly/monthly Mean of the MSFT Anomaly in a few sample points.↓↓↓**
+![Carte de la MSFT moyenne pour Sim. 2. Exemples de séries temporelles en quelques points.](data/MSFT-Map.png)
 
 As we can see with the few sample points taken here, no significant overall trend can be straightforwardly extracted from the MSFT signal. To pick up an underlying behaviour, statistical analysis of the spatio-temporal signal will be essential.
 
