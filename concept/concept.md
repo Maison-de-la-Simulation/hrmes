@@ -76,7 +76,22 @@ Inference by GP seems to be the most efficient technique :
 
 ## Third step : injecting accelerated MSFT into NEMO
 
-Figure qui montre ?!?
+We have made an attempt to restart the climate model using, for NEMO : altered velocities (which barotropic component was accelerated) but T, S, ssh and sea ice conditions unchanged.  
+
+The acceleration of the barotropic velocities was performed with GP over 10 years.
+
+Restarting NEMO from hybrid conditions was much smoother than expected, ie no numerical instability appeared.
+
+Variables of the climate model, with accelerated barotropic velocities, behave as expected : 
+- those that have most variance at high frequency (sub-decadal) have very similar anomalies as ground truth
+- those that have most variance at lower frequency (decadal) show a discrepancy from ground truth, but similar anomalies at high frequency
+
+There remain some inconsistencies, in particular in BGC and sea ice in northern hemisphere, to be clarified. 
+
+![OCE_sosstsst_global_prio_ave_acctest1](data/OCE_sosstsst_global_prio_ave_acctest1.gif)
+![OCE_thetao_1000m_prio_ave_acctest1](data/OCE_thetao_1000m_prio_ave_acctest1.gif )
+
+
 
 
 
