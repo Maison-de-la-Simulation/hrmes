@@ -1,3 +1,24 @@
+## 9 juin 
+
+* GRU sur 1er mode PCA -> predit solution stationnaire qui ne match pas avec truth
+*  ARIMA sur 1er mode PCA -> ok pour 1ere et 3eme simulations, plus difficile pour la 2eme (qui est la plus longue) - rajouter moyenne glissante pour lisser les pentes ?
+*  quel ordre pour les ARIMA ? “12-2-0” : (t-“12") ie autoregressive sur les 12 dernieres années - (“2” = optimisation ) - “0" pour  moyenne glissante (aucune en l’occurrence) 
+*  ARIMA fait l’hypothèse de stationnarité -> c’est justement l’ecart par rapport à la stationnarité qui nous interesse !
+*  quel algorithme de regression non-linéaire pourrait fonctionner : “spline” ? à discuter plus en details sur slack (Martial + Redouane + Nathan)
+*  quelle information on transfere entre simus ? -> tester meme procedure mais avec PCA sur les 50 premieres années de chaque simu
+* si nouvelle simu disponible, on en ferait quoi ? 
+    -  tester si PCA est la meme que dans les 3 autres simulations ?
+
+
+## 20 mai 
+
+on regarde ceci : https://github.com/Maison-de-la-Simulation/hrmes/blob/master/pca.ipynb
+
+* les 3 simulations ont des PCAs 1 et 2 tres semblables, et le mode 1 capture toujours la tendance spinup + les cartes sont tres semblables aussi (pattern ACC + gulf Stream + Kuroshio) // petite difference au demarrage pour la simu 2 car il faut rajouter les 40 ans precedentes (il faut prendre CM65v406-LR-pi-06 de 1850 à 2000 au debut de CM65v406-LR-pi-NWGHT-02) //
+*  tester apprentissage sur mode 1 seulement, avec apprentissage sur les 3 simulations dans un premier temps, puis avec simu 2 training et simus 1 et 3 testing
+*  pour mode 1 seulement, GRU ou autre technique de reconstruction ; la validation sera de reproduire les fluctuations de la pente
+*  Julie calcule MSFT pour CM65v42rcNew-LR-pi-02
+    
 ## 12 mai
 
 pour la version qui utilise les moyennes annuelles:
