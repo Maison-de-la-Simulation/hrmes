@@ -46,18 +46,11 @@ As we can see with the time series of the selected points, it is not straightfor
 
 * Principal Component Analysis
 
-Applying PCA on the entire dataset or on individual simulations, yields very similar results, which suggests that what follows is not sensitive to changes in NEMO parameters. 
+For each simulation, low frequency variability in all modes but the first one, is very small. Hence the first mode can be considered as the underlying spin-up of the global barotropic streamfunction. 
 
 ![5comp_holist_big.png](/../master/Meetings/data/5comp_holist_big.png)
 
-For each simulation, low frequency variability in all modes but the first one, is very small. Hence the first mode can be considered as the underlying spin-up of the global barotropic streamfunction. 
-
-
-- Figure qui montre carte du 1er mode sur serie la plus longue
-
-- Figure qui montre series temporelles PCA pour 2e mode pour chaque simu
-
-- Figure qui montre series temporelles pour 3e mode pour chaque simu
+Applying PCA on the entire dataset or on individual simulations, yields very similar results, which suggests that what follows is not sensitive to changes in NEMO parameters. 
 
 Applying PCA on selected geographical regions does not yield the same result, ie some modes other than the first one, have significant variability at decadal to centennial time scales. This suggests that the result above is a property of the **global** barotropic streamfunction.
 
@@ -79,7 +72,7 @@ We have explored several techniques such as :
 
 Inference by GP seems to be the most efficient technique : 
 
-![GP_long.png](https://github.com/Maison-de-la-Simulation/hrmes/Meetings/data/GP_long.png)
+![GP_long.png](/../master/Meetings/data/GP_long.png)
 
 ## Third step : injecting accelerated MSFT into NEMO
 
