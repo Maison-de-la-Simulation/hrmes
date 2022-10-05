@@ -143,16 +143,17 @@ pour la version qui utilise les moyennes annuelles:
 
 ## 9 mars
 
-* premier reseau CNN entrainé par Nathan donne des resultats tres prometteurs meme si l’amplitude du signal reconstruit est moindre (voir message suivant avec figure)
-* Nathan travaille sur pytorch, et cela ravit Redouane :wink:
+* premier reseau CNN entrainé par Nathan donne des resultats tres prometteurs meme si l’amplitude du signal reconstruit est moindre 
+![First attempt with CNN](data/attempt1.png)
+À gauche le 13ème mois prédit par le réseau à partir des 12 premiers, à droite la carte attendue
+
+* Nathan travaille sur pytorch, et cela ravit Redouane 
 * normalisation point par point, avec min et max -> envisager de passer à ÷ std ou ÷(2×std)
 * masque le long des continents à paufiner
 * introduire periodicité entre bords est et ouest via padding (il y a aussi une periodicite le long du bord nord, entre parties est et ouest, mais plus difficile à introduire)
 
 Prochaine étape : appliquer le reseau en boucle pour voir au bout de combien d’annees les erreurs deviennent trop importantes (tracer rmse en fonction du nombre de mois predits dans le futur, puis qq cartes pour points d’inflexion dans serie temporelle de rmse)
 
-![First attempt with CNN](data/attempt1.png)
-À gauche le 13ème mois prédit par le réseau à partir des 12 premiers, à gauche la carte attendue
 
 
 ## 16 février
@@ -164,7 +165,7 @@ Prochaine étape : appliquer le reseau en boucle pour voir au bout de combien d�
 
 Exemples donnés par Julie pour enlever le cycle saisonnier, etc: 
 
-![IPSLCM6ALR_msftbarot_test_sp.png](IPSLCM6ALR_msftbarot_test_sp.png)
+![IPSLCM6ALR_msftbarot_test_sp.png](data/IPSLCM6ALR_msftbarot_test_sp.png)
 
 la premiere solution (on enleve moyenne de tous les mois de janvier, fevrier, mars… ligne bleue) conserve exactement le spectre de reference (ligne noire) sauf les pics annuel et bi-annuel, tandis que les 2 autres solutions (Decembre seulement, ligne rouge, et moyenne DJF, ligne rose) ont plus de variance aux periodes < 16 ans, mais c’est à peine significatif. 
 
