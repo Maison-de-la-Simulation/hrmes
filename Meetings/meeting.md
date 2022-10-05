@@ -55,7 +55,7 @@
 * si nouvelle simu disponible, on en ferait quoi ? 
     -  tester si PCA est la meme que dans les 3 autres simulations ?
 
-suggestions techniques de regression par Martial : 
+suggestions  de methodes de regression par Martial : 
 * ![regression polynomiale](https://fr.wikipedia.org/wiki/R%C3%A9gression_polynomiale) : normalement bonne entre les points du nuage mais ne peut fonctionner pas trop loin
 * ![regression non parametrique](https://fr.wikipedia.org/wiki/R%C3%A9gression_non_param%C3%A9trique)
 * ![Estimation par noyau](https://fr.wikipedia.org/wiki/Estimation_par_noyau)
