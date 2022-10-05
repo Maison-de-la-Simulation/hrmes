@@ -48,10 +48,10 @@ As we can see with the time series of the selected points, it is not straightfor
 
 Applying PCA on the entire dataset or on individual simulations, yields very similar results, which suggests that what follows is not sensitive to changes in NEMO parameters. 
 
-Fundamental result is the following : low frequency variability in all modes but the first one, is very small. Hence the first mode can be considered as the underlying spin-up of the global barotropic streamfunction. 
+![5comp_holist_big.png](hrmes/Meetings/data/5comp_holist_big.png)
 
-Figures to be added : 
-- Figure qui montre series temporelles du 1er mode pour chaque simu + reconstruction du 1er mode à partir de PCA sur la plus longue
+For each simulation, low frequency variability in all modes but the first one, is very small. Hence the first mode can be considered as the underlying spin-up of the global barotropic streamfunction. 
+
 
 - Figure qui montre carte du 1er mode sur serie la plus longue
 
