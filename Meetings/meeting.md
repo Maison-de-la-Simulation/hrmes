@@ -11,9 +11,9 @@
   -   le score est different selon les parametres choisis pour la methode : est-il possible de quantifier plus systematiquement l’incertitude de la reconstruction, en fonction du choix de ces parametres ?
    -  Redouane est tres sceptique sur la qualité réelle de cette méthode, et partage ![ce lien](https://medium.com/geekculture/common-pitfalls-to-avoid-in-forecasting-models-for-stock-price-prediction-3a7c3ff8b80) suivant qui souligne les “caveats” de ce type de methodes mais reconnait que ce sont des methodes tres frequemment utilisees pour forecast de signaux chaotiques
    -  conclusion : il faut s’assurer que l’utilisation de cette methode est correcte, et explorer les incertitudes, que JD identifie en 3 catégories :
-    .  incertitude parametrique cf choix des parametres de la methode
-    . incertitude structurelle : est-ce que si on sort une simu completement de la base d’apprentissage, on peut reconstruire son spinup a partir des 2 autres ?
-    .  incertitude intrinseque du spinup : est-ce qu’on peut reconstruire toutes les phases du spinup, ie les 100 premieres années, 200, 300, …. 
+      *   incertitude parametrique cf choix des parametres de la methode
+      *  incertitude structurelle : est-ce que si on sort une simu completement de la base d’apprentissage, on peut reconstruire son spinup a partir des 2 autres ?
+      *  incertitude intrinseque du spinup : est-ce qu’on peut reconstruire toutes les phases du spinup, ie les 100 premieres années, 200, 300, …. 
 
 *  Nathan veut continuer d’explorer d’autres méthodes, et Redouane veut jouer aussi tout seul avec les données 
 
