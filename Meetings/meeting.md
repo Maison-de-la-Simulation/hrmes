@@ -1,3 +1,23 @@
+## 24 juin
+
+* retour sur probleme de taille des grilles entre versions de NEMO : en v<4.2 eORCA1 = 362x332 tandis que en v>=4.2 eORCA1 = 360x331
+   -  option A : on conserve apprentissage sur grilles 362x332 et on replique les lignes en question pour les grilles 360x331
+   -  option B : on modifie apprentissage (en fait il suffit d’enlever le padding) pour ne prendre que grilles 360x331 et on “coupe” les lignes supplementaires des grilles 362x332
+   -  note : avec la PCA on ne travaille plus sur les grilles completes donc ce n’est pas un probleme pour l’instant
+   -  conclusion : dans un premier temps, il suffit d’adapter programmes pour calcul MSFT et PCA pour prendre donnees sur les 2 grilles
+
+* nathan a exploré ![reservoirpy](https://github.com/reservoirpy/reservoirpy) pour construire la suite des series temporelles du premier mode de PCA
+  -   la qualité de la reconstruction est bluffante dans la plupart des cas ! sauf de manière un peu systématique pour la 3eme simulation (pour raison physique / numerique ?)
+  -   le score est different selon les parametres choisis pour la methode : est-il possible de quantifier plus systematiquement l’incertitude de la reconstruction, en fonction du choix de ces parametres ?
+   -  Redouane est tres sceptique sur la qualité réelle de cette méthode, et partage ![ce lien](https://medium.com/geekculture/common-pitfalls-to-avoid-in-forecasting-models-for-stock-price-prediction-3a7c3ff8b80) suivant qui souligne les “caveats” de ce type de methodes mais reconnait que ce sont des methodes tres frequemment utilisees pour forecast de signaux chaotiques
+   -  conclusion : il faut s’assurer que l’utilisation de cette methode est correcte, et explorer les incertitudes, que JD identifie en 3 catégories :
+    .  incertitude parametrique cf choix des parametres de la methode
+    . incertitude structurelle : est-ce que si on sort une simu completement de la base d’apprentissage, on peut reconstruire son spinup a partir des 2 autres ?
+    .  incertitude intrinseque du spinup : est-ce qu’on peut reconstruire toutes les phases du spinup, ie les 100 premieres années, 200, 300, …. 
+
+*  Nathan veut continuer d’explorer d’autres méthodes, et Redouane veut jouer aussi tout seul avec les données 
+
+
 ## 9 juin 
 
 * GRU sur 1er mode PCA -> predit solution stationnaire qui ne match pas avec truth
@@ -9,6 +29,11 @@
 * si nouvelle simu disponible, on en ferait quoi ? 
     -  tester si PCA est la meme que dans les 3 autres simulations ?
 
+suggestions techniques de regression par Martial : 
+* ![regression polynomiale](https://fr.wikipedia.org/wiki/R%C3%A9gression_polynomiale) : normalement bonne entre les points du nuage mais ne peut fonctionner pas trop loin
+* ![regression non parametrique](https://fr.wikipedia.org/wiki/R%C3%A9gression_non_param%C3%A9trique)
+* ![Estimation par noyau](https://fr.wikipedia.org/wiki/Estimation_par_noyau)
+* ![SVM](https://scikit-learn.org/stable/auto_examples/svm/plot_svm_regression.html)
 
 ## 20 mai 
 
