@@ -167,3 +167,14 @@ Exemples donnés par Julie pour enlever le cycle saisonnier, etc:
 la premiere solution (on enleve moyenne de tous les mois de janvier, fevrier, mars… ligne bleue) conserve exactement le spectre de reference (ligne noire) sauf les pics annuel et bi-annuel, tandis que les 2 autres solutions (Decembre seulement, ligne rouge, et moyenne DJF, ligne rose) ont plus de variance aux periodes < 16 ans, mais c’est à peine significatif. 
 Entre Decembre et DJF, il y a plus de variance pour Decembre aux periodes < 10 ans, comme attendu par Balaji.
 Conclusion : Si on considère que notre objectif est d’etre au plus proche de la reference, alors il vaut mieux prendre ssca, mais alors on doit travailler avec donnees mensuelles, et sinon DJF (donnees annuelles, donc 12 fois moins de points), et en dernier choix Decembre.
+
+
+## 2 février 
+
+* presentation du data set :  input = informations mensuelles (2 time frames successives) ?
+*     decouper le spinup en plusieurs fractions ? 100 premieres annees…
+*     preparer script python qui trace series temporelles de mise en circulation 
+* TODO @Julie Deshayes
+     -     compléter tableau des simulations disponibles 
+     -     préparer netcdf de fonction de courant barotrope, MOC et bathy (pas besoin de masque car tenseur des valeurs ocean seulement) 
+     -     normalisation ?
