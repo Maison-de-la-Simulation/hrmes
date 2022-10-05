@@ -1,5 +1,12 @@
 # Concept note on the use of IA to accelerate spinup of OGCM
 
+The objective is to study the acceleration of the equilibration of ocean currents in the IPSL global climate model (IPSLCM6). This equilibration phase also constrains the calibration of the parameters, and all of this ultimately represents 500% of the computational cost of the final simulations, used by scientific projects or by IPCC reports.  
+
+The acceleration by artificial intelligence models deployed on Jean Zay computer should greatly reduce this initialization phase of the climate models, and facilitate changes in spatial resolution in particular. 
+
+The idea is to have an AI inference model that extrapolates a series of simulation time steps (in months/years) and then reinjects the extrapolated solution into the climate model to perform new simulation steps. These two steps would be repeated as many times as necessary to obtain a stable algorithm that converges to a physically admissible solution comparable to full equilibria, while greatly reducing the number of time steps calculated explicitly with the model.   
+
+
 ## Motivation
 
 * an illustration of spin-up time from the QUEST project
@@ -37,23 +44,42 @@ As we can see with the time series of the selected points, it is not straightfor
 
 ## First step : reducing complexity in dataset
 
-* PCA
-PCA sur 1 seule simu à la fois 
-Figure qui montre series temporelles du 1er mode pour chaque simu + reconstruction du 1er mode à partir de PCA sur la plus longue
+* Principal Component Analysis
 
-Figure qui montre carte du 1er mode sur serie la plus longue
+Applying PCA on the entire dataset or on individual simulations, yields very similar results, which suggests that what follows is not sensitive to changes in NEMO parameters. 
 
-Figure qui montre series temporelles PCA pour 2e mode pour chaque simu
+Fundamental result is the following : low frequency variability in all modes but the first one, is very small. Hence the first mode can be considered as the underlying spin-up of the global barotropic streamfunction. 
 
-Figure qui montre series temporelles pour 3e mode pour chaque simu
+Figures to be added : 
+- Figure qui montre series temporelles du 1er mode pour chaque simu + reconstruction du 1er mode à partir de PCA sur la plus longue
 
-* DMD
+- Figure qui montre carte du 1er mode sur serie la plus longue
 
-????
+- Figure qui montre series temporelles PCA pour 2e mode pour chaque simu
+
+- Figure qui montre series temporelles pour 3e mode pour chaque simu
+
+Applying PCA on selected geographical regions does not yield the same result, ie some modes other than the first one, have significant variability at decadal to centennial time scales. This suggests that the result above is a property of the **global** barotropic streamfunction.
+
+* Dynamic Mode Decomposition
+
+to be completed - DMD has been tested but not yet conclusive as compared to PCA.
+
 
 ## Second step : emulating spin up time series
 
-Figure qui montre 1er mode avec gaussian guess...
+As long as the spin-up of the global barotropic streamfunction can be extracted with PCA, the complexity of our problem reduces to emulating the behaviour of a single time series. 
+
+We have explored several techniques such as : 
+- GRU
+- ARIMA
+- polynomial regression
+- reservoir computing
+- Gaussian processes
+
+Inference by GP seems to be the most efficient technique : 
+
+![GP_long.png](https://github.com/Maison-de-la-Simulation/hrmes/Meetings/data/GP_long.png)
 
 ## Third step : injecting accelerated MSFT into NEMO
 
