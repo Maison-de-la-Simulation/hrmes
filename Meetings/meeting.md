@@ -1,3 +1,16 @@
+## 30 juin 
+
+* retour sur les figures partagées la derniere fois : la prediction ne s’applique que sur 1 pas de temps à chaque fois ; quand on essaye de predire de maniere recurrente, alors la prediction est constante…
+*  nathan a essayé la regression polynomiale, mais ne fonctionne pas du tout
+* discussion large sur PCA… reflechir à autre methode de decomposition : ![DMD](https://towardsdatascience.com/a-case-against-pca-for-time-series-analysis-ac66b47629e0)
+* Redouane essaye d'extrapoler la serie temporelle avec processus gaussiens, ![à court terme](data/GP_short.png) et ![à long terme](data/GP_long.png)
+* c’est important de bien rediger le resultat suivant : PCA permet de reduire dimensionnalité, mais alors on n’a plus que 1 serie temporelle qui est trop chaotique pour etre predite elle-meme sans autres informations
+     -  le resultat precedent n’exclut pas la possibilite d’accelerer le spin up on alternant emulation de la serie du premier mode PCA, et simulation explicite avec le modele [solution A]
+      -   et si l’information sur l’etat équilibré de l’ocean était dans l’atmosphère ajusté (beaucoup plus vite que l’océan) ? le probleme c’est qu’il faut beaucoup de données (ocean initial - equilibré) 
+
+-> il est temps d’essayer en pratique la solution  A ci-dessus : avec la simulation CM65Work-Spinup-Ref de Guillaume - Julie calcule MSFT puis partage avec nathan pour qu’il extrapole MSFT 10 ans plus tard ! (edited) 
+
+
 ## 24 juin
 
 * retour sur probleme de taille des grilles entre versions de NEMO : en v<4.2 eORCA1 = 362x332 tandis que en v>=4.2 eORCA1 = 360x331
