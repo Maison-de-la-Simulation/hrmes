@@ -83,8 +83,8 @@ The acceleration of the barotropic velocities was performed with GP over 10 year
 Restarting NEMO from hybrid conditions was much smoother than expected, ie no numerical instability appeared.
 
 Variables of the climate model, with accelerated barotropic velocities, behave as expected : 
-- those that have most variance at high frequency (sub-decadal) have very similar anomalies as ground truth
-- those that have most variance at lower frequency (decadal) show a discrepancy from ground truth, but similar anomalies at high frequency
+- those that have most variance at high frequency (sub-decadal) have very similar anomalies as ground truth (for example sea surface temperature),
+- those that have most variance at lower frequency (decadal) show a discrepancy from ground truth, but similar anomalies at high frequency (for example temperature at 1000m depth).
 
 There remain some inconsistencies, in particular in BGC and sea ice in northern hemisphere, to be clarified. 
 
