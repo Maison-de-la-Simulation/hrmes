@@ -1,9 +1,22 @@
+## 17 aout 
+
+*    Nathan a posté sur /work/ de omr des cartes de fonction de courant barotrope acceleres de 10 ans pour chacune des 3 simulations de Guillaume (spinup-ref, noleap, et namelist1) : 2 cartes pour chaque simu car [1] accelere le 1er/50 modes et suppose tous les autres constants ou [2] accelere le 1er mode et c’est tout ; a priori masks ok (v>4.2)
+*    apprentissage sur 3 simulations initiales (donc simus de tests exclues)
+
+## 13 juillet 
+
+*  souci avec donnees NEMO v>=4.2 car les continents ne sont plus les memes exactement (en plus de la difference de nombre de points de grille) - attention au recadrage des donnees : il faut enlever la ligne “en haut” ie dans l’arctic et non pas “en bas” ie dans l’antarctic
+*   autre methode possible de decomposition en modes : ![SSA] (https://pyts.readthedocs.io/en/stable/auto_examples/decomposition/plot_ssa.html) ou autre… un peu de biblio necessaire ici pour voir si deja appliqué dans contexte oceano !
+
 ## 30 juin 
 
 * retour sur les figures partagées la derniere fois : la prediction ne s’applique que sur 1 pas de temps à chaque fois ; quand on essaye de predire de maniere recurrente, alors la prediction est constante…
 *  nathan a essayé la regression polynomiale, mais ne fonctionne pas du tout
 * discussion large sur PCA… reflechir à autre methode de decomposition : ![DMD](https://towardsdatascience.com/a-case-against-pca-for-time-series-analysis-ac66b47629e0)
-* Redouane essaye d'extrapoler la serie temporelle avec processus gaussiens, ![à court terme](data/GP_short.png) et ![à long terme](data/GP_long.png)
+* Redouane essaye d'extrapoler la serie temporelle avec processus gaussiens, à court terme (gauche) et à long terme (droite)
+
+![GP_short.png](data/GP_short.png)  ![GP_long.png](data/GP_long.png)
+
 * c’est important de bien rediger le resultat suivant : PCA permet de reduire dimensionnalité, mais alors on n’a plus que 1 serie temporelle qui est trop chaotique pour etre predite elle-meme sans autres informations
      -  le resultat precedent n’exclut pas la possibilite d’accelerer le spin up on alternant emulation de la serie du premier mode PCA, et simulation explicite avec le modele [solution A]
       -   et si l’information sur l’etat équilibré de l’ocean était dans l’atmosphère ajusté (beaucoup plus vite que l’océan) ? le probleme c’est qu’il faut beaucoup de données (ocean initial - equilibré) 
