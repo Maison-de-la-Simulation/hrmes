@@ -65,9 +65,9 @@ suggestions  de methodes de regression par Martial :
 
 on regarde ceci : https://github.com/Maison-de-la-Simulation/hrmes/blob/master/pca.ipynb
 
-* les 3 simulations ont des PCAs 1 et 2 tres semblables ![(voir PCA complete)](data/5 comp_holist_big.png), et le mode 1 capture toujours la tendance spinup, par exemple : 
+* les 3 simulations ont des PCAs 1 et 2 tres semblables ![(voir PCA complete)](data/5comp_holist_big.png), et le mode 1 capture toujours la tendance spinup, par exemple : 
 
-![1st mode](data/5 comp_holist_1stmode.png)
+![1st mode](data/5comp_holist_1stmode.png)
 
 *   les cartes sont tres semblables aussi (pattern ACC + gulf Stream + Kuroshio) // petite difference au demarrage pour la simu 2 car il faut rajouter les 40 ans precedentes (il faut prendre CM65v406-LR-pi-06 de 1850 à 2000 au debut de CM65v406-LR-pi-NWGHT-02) //
 
