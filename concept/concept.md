@@ -38,7 +38,7 @@ As a starting point of the Spin-Up Acceleration Process, we studied the Barotrop
 
 
 **↓↓↓ Time mean bartropic streamfunction (colours) and monthly anomalies in selected points (inserts) produced by Simulation #2↓↓↓**
-![Carte de la MSFT moyenne pour Sim. 2. Exemples de séries temporelles en quelques points.](data/MASF-Map.png)
+![Carte de la MSFT moyenne pour Sim. 2. Exemples de séries temporelles en quelques points.](data/MSFT-Map.png)
 
 As we can see with the time series of the selected points, it is not straightforward to extract a trend reflecting the global adjustment of the barotropic streamfunction, which lasts months to decades depending on the region. This calls for statistical analysis of the dataset, to extract the underlying spin-up phase. 
 
