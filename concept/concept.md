@@ -24,7 +24,7 @@ hrmes project focuses on simulations of IPSLCM6 produced with NEMO v4.0 and v4.2
 ## Dataset
 
 In order to properly understand and accelerate the Spin-Up phase, we need to take into account the varying physics coming from the changing parameterization of our computational model(s) : the bigger and more varied our dataset, the better we should be able to extract a general behaviour, ensuring to some extent the viability of an acceleration method in all future simulations.
-On the other hand — the Spin-Up process potentially spanning time-scales up the millenium — we need a dataset containing extensive lengths of simulation time, which goes against the need for a varied dataset since ressources are limited.
+On the other hand — the Spin-Up process potentially spanning time-scales up to the millenium — we need a dataset containing extensive lengths of simulation time, which goes against the need for a varied dataset since ressources are limited.
 
 We tried to gather for a start 3 lengthy simulation runs, coming from previous versions of the NEMO model : this is what we defined as our Training Set (Sims 1-3). We then supplemented this first set with several shorter simulation runs using the current version of the NEMO model (v4.2.0–release candidate), as well as variations on the model parameters stemming from current development efforts : this is our Testing Set (Sims 4-7) on which acceleration attempts have been conducted.
 
