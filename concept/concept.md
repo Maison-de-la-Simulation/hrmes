@@ -82,7 +82,12 @@ The acceleration of the barotropic velocities was performed with GP over 10 year
 
 Restarting NEMO from hybrid conditions was much smoother than expected, ie no numerical instability appeared.
 
-Variables of the climate model, with accelerated barotropic velocities, behave as expected : 
+The resulting accelerated barotropic streamfunction behaves as expected :  it is not the same as what would have happened with no acceleration, neither at time 0 nor 10 years later :
+
+![MSFT_PC1_acc_test10yr](data/MSFT_PC1_acc_test10yr_long.png)
+![MSFT_PC1_acc_test10yr_long](data/MSFT_PC1_acc_test10yr.png)
+
+Other variables of the climate model, with accelerated barotropic velocities, behave as expected as well : 
 - those that have most variance at high frequency (sub-decadal) have very similar anomalies as ground truth (for example sea surface temperature),
 - those that have most variance at lower frequency (decadal) show a discrepancy from ground truth, but similar anomalies at high frequency (for example temperature at 1000m depth).
 
